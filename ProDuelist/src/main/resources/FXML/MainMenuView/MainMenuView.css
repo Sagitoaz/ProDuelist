@@ -1,0 +1,59 @@
+.label-DECKS {
+    -fx-font-size: 50px;
+    -fx-text-fill: white;
+}
+
+.anchorPane {
+    -fx-background-color: rgba(10, 40, 80, 0.7);
+    -fx-border-color: #00ffff;
+    -fx-border-radius: 10;
+}
+
+.searchingField {
+    -fx-background-color: #1a1a1a;
+    -fx-text-fill: white;
+    -fx-border-color: #333;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
+
+.button:hover {
+    -fx-background-color: #8b16d9;
+}
+
+.button {
+    -fx-background-color: #6a0dad;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-border-color: #333;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-background-insets: 0;
+    -fx-margin: 0 0 0 5px;
+}
+
+.list-view {
+    -fx-background-color: rgba(0, 0, 0, 0.6);
+    -fx-border-color: #7D26CD;
+    -fx-border-width: 2px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+}
+
+.list-cell {
+    -fx-background-color: rgba(50, 50, 50, 0.8);
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+}
+
+.list-cell:hover {
+    -fx-background-color: #8A2BE2;
+    -fx-text-fill: yellow;
+}
+
+.list-cell:selected {
+    -fx-background-color: #FF4500;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@LoginView.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.LoginView">
+   <children>
+      <ImageView fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../Images/ProDuelistBG.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="269.0" fitWidth="400.0" layoutX="387.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Images/LoginCharacter.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="252.0" fitWidth="300.0" layoutX="461.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Images/LoginCharacter2.png" />
+         </image>
+      </ImageView>
+      <VBox prefHeight="600.0" prefWidth="300.0" AnchorPane.leftAnchor="10.0">
+         <children>
+            <ImageView fitHeight="225.0" fitWidth="246.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Images/Logo.png" />
+               </image>
+            </ImageView>
+            <Label styleClass="label-title" text="ACCOUNT LOGIN" textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+            </Label>
+            <Label text="Username: " textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="label-title" />
+                  <String fx:value="label-login" />
+               </styleClass>
+            </Label>
+            <TextField fx:id="usernameField" promptText="Enter username" />
+            <Label text="Password: " textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="label-title" />
+                  <String fx:value="label-login" />
+               </styleClass>
+            </Label>
+            <PasswordField fx:id="passwordField" promptText="Enter password" />
+            <GridPane prefHeight="100.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#onClickRegisterButton" prefWidth="100.0" styleClass="button-register" text="REGISTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#onClickedLoginButton" prefWidth="100.0" styleClass="button-login" text="LOGIN" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <CheckBox mnemonicParsing="false" text="Stay logged in" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
+                  <Button mnemonicParsing="false" styleClass="button-forgotpass" text="Forgot password" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+               </children>
+            </GridPane>
+            <Label fx:id="errorLabel" styleClass="label-error" text="Label" visible="false">
+               <VBox.margin>
+                  <Insets right="10.0" top="10.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

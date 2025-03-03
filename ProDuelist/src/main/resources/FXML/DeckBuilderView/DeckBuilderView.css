@@ -1,0 +1,64 @@
+.label {
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-color: white;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-background-insets: 0;
+}
+
+.scroll-pane {
+    -fx-background-color: linear-gradient(to bottom, #0A1F44, #081830);
+    -fx-border-color: #1E90FF;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.grid-pane-border {
+    -fx-border-color: blue;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+}
+
+.hbox-border {
+    -fx-border-color: blue;
+    -fx-border-width: 2px;
+    -fx-border-style: dashed;
+}
+
+.searching-text {
+    -fx-fill: white;
+    -fx-background-color: transparent;
+}
+
+.save-button {
+    -fx-background-color: #0099FF;
+    -fx-text-fill: white;
+}
+
+.save-button:hover {
+    -fx-background-color: #66C2FF;
+}
+
+.clear-button {
+    -fx-background-color: #CC0000;
+    -fx-text-fill: white;
+}
+
+.clear-button:hover {
+    -fx-background-color: #FF3333;
+}
+
+.sss-button {
+    -fx-background-color: #444444;
+    -fx-text-fill: white;
+}
+
+.sss-button:hover {
+    -fx-background-color: #666666;
+}
