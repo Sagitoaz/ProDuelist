@@ -1,23 +1,31 @@
 package Model;
 
+import java.util.List;
+
 public class Deck {
-    private int deckId;
-    private int userId;
+    private String deckId;
+    private String userId;
     private String deckName;
     private String visibility;
+    private List<String> cardIDs;
 
-    public Deck(int deckId, int userId, String deckName, String visibility) {
+    public Deck(String deckId, String userId, String deckName, String visibility, List<String> cardIDs) {
         this.deckId = deckId;
         this.userId = userId;
         this.deckName = deckName;
         this.visibility = visibility;
+        this.cardIDs = cardIDs;
     }
 
-    public int getDeckId() {
+    public List<String> getCardIDs() {
+        return cardIDs;
+    }
+
+    public String getDeckId() {
         return deckId;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 

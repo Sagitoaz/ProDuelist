@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -101,7 +102,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
                         </Label>
-                        <ImageView fx:id="cardImageView" fitHeight="250.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="cardImageView" fitHeight="280.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                            <VBox.margin>
                               <Insets bottom="5.0" left="25.0" right="5.0" top="5.0" />
                            </VBox.margin>
@@ -121,8 +122,8 @@
                <content>
                   <VBox prefHeight="200.0" prefWidth="250.0" spacing="10.0">
                      <children>
-                        <TextField prefHeight="30.0" prefWidth="186.0" promptText="Enter Card Name..." />
-                        <GridPane>
+                        <TextField fx:id="searchTextField" prefHeight="30.0" prefWidth="186.0" promptText="Enter Card Name..." />
+                        <GridPane gridLinesVisible="true">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -166,8 +167,22 @@
                                  </GridPane.margin>
                               </TextField>
                            </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" top="5.0" />
+                           </VBox.margin>
                         </GridPane>
+                        <ListView fx:id="searchResultList" prefHeight="270.0" prefWidth="250.0">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                           </padding>
+                        </ListView>
                      </children>
+                     <opaqueInsets>
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                     </opaqueInsets>
                   </VBox>
                </content>
             </ScrollPane>
@@ -186,6 +201,7 @@
                   <Button mnemonicParsing="false" styleClass="sss-button" text="Sort" />
                   <Button mnemonicParsing="false" styleClass="sss-button" text="Shuffle" />
                   <Button mnemonicParsing="false" styleClass="sss-button" text="Share" />
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#onClickedBackButton" styleClass="clear-button" text="Back" />
                </children>
             </HBox>
          </top>

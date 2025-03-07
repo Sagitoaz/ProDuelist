@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CardDAO {
     public static void saveCards(List<Card> cards) {
@@ -61,6 +62,67 @@ public class CardDAO {
                         rs.getString("image_url")
                 );
                 cards.add(card);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cards;
+    }
+
+    public static Card getCardById(String idStr) {
+        int id = Integer.parseInt(idStr);
+        String sql = "SELECT * FROM Cards WHERE id = ?";
+        try (Connection conn = DatabaseManager.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return new Card(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("type"),
+                        rs.getString("frameType"),
+                        rs.getString("race"),
+                        rs.getString("attribute"),
+                        rs.getInt("level"),
+                        rs.getInt("attack"),
+                        rs.getInt("defense"),
+                        rs.getString("desc"),
+                        rs.getString("image_url")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Card> searchCardsByName(String cardName, int limit) {
+        List<Card> cards = new ArrayList<>();
+        String query = "SELECT * FROM Cards WHERE name LIKE ? LIMIT ?";
+
+        try (Connection conn = DatabaseManager.connect();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, "%" + cardName + "%");
+            stmt.setInt(2, limit);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    cards.add(new Card(
+                            rs.getInt("id"),
+                            rs.getString("name"),
+                            rs.getString("type"),
+                            rs.getString("frameType"),
+                            rs.getString("race"),
+                            rs.getString("attribute"),
+                            rs.getInt("level"),
+                            rs.getInt("attack"),
+                            rs.getInt("defense"),
+                            rs.getString("desc"),
+                            rs.getString("image_url")
+                    ));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();

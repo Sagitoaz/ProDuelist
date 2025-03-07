@@ -29,17 +29,19 @@ public class UserModel {
         return executeCountQuery("SELECT COUNT(*) FROM Users WHERE email = ?", email);
     }
 
-    public boolean checkPassword(String username, String password) {
+    public String getUserID(String username, String password) {
         String query = "SELECT * FROM Users WHERE username = ? AND password = ?";
         try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, username);
             pstmt.setString(2, password);
             ResultSet rs = pstmt.executeQuery();
-            return rs.next();
+            if (rs.next()) {
+                return rs.getString("id");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     public boolean registUser(String email, String username, String password) {

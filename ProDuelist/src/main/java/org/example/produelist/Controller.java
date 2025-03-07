@@ -1,5 +1,6 @@
 package org.example.produelist;
 
+import View.DeckBuilderView;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,12 +27,7 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        comboboxType.setItems(FXCollections.observableArrayList("Monster", "Spell", "Trap"));
-        comboboxRace.setItems(FXCollections.observableArrayList("Dragon", "Warrior", "Spellcaster", "Fiend", "Fairy"));
-        comboboxMonsterType.setItems(FXCollections.observableArrayList("Normal", "Effect", "Fusion", "Synchro", "XYZ", "Link"));
-        comboboxAttribute.setItems(FXCollections.observableArrayList("Light", "Dark", "Water", "Fire", "Earth", "Wind", "Divine"));
-        comboboxLevel.setItems(FXCollections.observableArrayList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"));
-        comboboxResult.setItems(FXCollections.observableArrayList("30", "60", "90", "120"));
+        DeckBuilderView.setupComboBox(comboboxType, comboboxRace, comboboxMonsterType, comboboxAttribute, comboboxLevel, comboboxResult);
 
 //        comboboxType.setOnAction(event -> updateGridVisibility());
 //        comboboxType.valueProperty().addListener((observable, oldValue, newValue) -> updateGridVisibility());

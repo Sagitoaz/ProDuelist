@@ -11,4 +11,7 @@ module org.example.produelist {
     opens View to javafx.fxml;
     exports View;
 
+    opens Model to javafx.fxml;
+    exports Model;
+
 }
