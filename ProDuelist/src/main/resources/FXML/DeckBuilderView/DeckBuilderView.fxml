@@ -196,7 +196,7 @@
                         <ComboBox prefWidth="150.0" />
                      </graphic>
                   </Label>
-                  <Button mnemonicParsing="false" styleClass="save-button" text="Save" />
+                  <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onClickedSaveButton" styleClass="save-button" text="Save" />
                   <Button mnemonicParsing="false" styleClass="clear-button" text="Clear" />
                   <Button mnemonicParsing="false" styleClass="sss-button" text="Sort" />
                   <Button mnemonicParsing="false" styleClass="sss-button" text="Shuffle" />

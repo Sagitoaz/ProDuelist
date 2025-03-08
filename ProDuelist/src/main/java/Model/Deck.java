@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Deck {
@@ -14,7 +15,7 @@ public class Deck {
         this.userId = userId;
         this.deckName = deckName;
         this.visibility = visibility;
-        this.cardIDs = cardIDs;
+        this.cardIDs = (cardIDs == null) ? new ArrayList<>() : new ArrayList<>(cardIDs);
     }
 
     public List<String> getCardIDs() {

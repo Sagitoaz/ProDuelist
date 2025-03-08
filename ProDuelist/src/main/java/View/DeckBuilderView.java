@@ -1,5 +1,7 @@
 package View;
 
+import Controller.CardDisplayFactory;
+import Controller.DeckDAO;
 import Controller.SceneManager;
 import Model.Card;
 import Model.CardDAO;
@@ -11,12 +13,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -35,8 +41,11 @@ public class DeckBuilderView implements Initializable {
     @FXML private ImageView cardImageView;
     @FXML private Label cardNameLabel;
     @FXML private Button backButton;
+    @FXML private Button saveButton;
 
-
+    private Deck currentDeck;
+    CardDisplayFactory cardDisplayFactory = new CardDisplayFactory();
+    DeckDAO deckDAO = new DeckDAO();
     CardDAO cardDAO = new CardDAO();
     private static final int gridColums = 15;
     private static final int gridRows = 4;
@@ -45,9 +54,9 @@ public class DeckBuilderView implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setupComboBox(comboboxType, comboboxRace, comboboxMonsterType, comboboxAttribute, comboboxLevel, comboboxResult);
-        comboboxSort.setItems(FXCollections.observableArrayList(""));
-        searchTextField.setOnAction(_ -> searchCards());
+        setupComboBox(comboboxType, comboboxRace, comboboxMonsterType, comboboxAttribute, comboboxLevel, comboboxResult, comboboxSort);
+        setupSearchTextField();
+        setupMainDeckGridDragDrop();
     }
 
     @FXML
@@ -56,17 +65,71 @@ public class DeckBuilderView implements Initializable {
         Main.primaryStage.setScene(sceneManager.mainMenuScene());
     }
 
+    @FXML
+    void onClickedSaveButton(ActionEvent event) {
+        List<String> newCardIds = new ArrayList<>();
+        mainDeckGrid.getChildren().forEach(node -> {
+            if (node instanceof ImageView) {
+                String cardId = (String) node.getUserData();
+                newCardIds.add(cardId);
+            }
+        });
 
-    public static void setupComboBox(ComboBox<String> comboboxType, ComboBox<String> comboboxRace, ComboBox<String> comboboxMonsterType, ComboBox<String> comboboxAttribute, ComboBox<String> comboboxLevel, ComboBox<String> comboboxResult) {
+        if (currentDeck != null) {
+            currentDeck.getCardIDs().clear();
+            currentDeck.getCardIDs().addAll(newCardIds);
+
+            deckDAO.updateDeck(currentDeck);
+
+            System.out.println("Deck đã được cập nhật card_ids thành công!");
+        }
+    }
+
+
+    private void setupComboBox(ComboBox<String> comboboxType, ComboBox<String> comboboxRace, ComboBox<String> comboboxMonsterType, ComboBox<String> comboboxAttribute, ComboBox<String> comboboxLevel, ComboBox<String> comboboxResult, ComboBox<String> comboboxSort) {
         comboboxType.setItems(FXCollections.observableArrayList("Monster", "Spell", "Trap"));
         comboboxRace.setItems(FXCollections.observableArrayList("Dragon", "Warrior", "Spellcaster", "Fiend", "Fairy"));
         comboboxMonsterType.setItems(FXCollections.observableArrayList("Normal", "Effect", "Fusion", "Synchro", "XYZ", "Link"));
         comboboxAttribute.setItems(FXCollections.observableArrayList("Light", "Dark", "Water", "Fire", "Earth", "Wind", "Divine"));
         comboboxLevel.setItems(FXCollections.observableArrayList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"));
         comboboxResult.setItems(FXCollections.observableArrayList("30", "60", "90", "120"));
+        comboboxSort.setItems(FXCollections.observableArrayList(""));
+    }
+
+    private void setupSearchTextField() {
+        searchTextField.setOnAction(_ -> searchCards());
+    }
+
+    private void setupMainDeckGridDragDrop() {
+        mainDeckGrid.setOnDragOver(event -> {
+            if (event.getGestureSource() != mainDeckGrid && event.getDragboard().hasString()) {
+                event.acceptTransferModes(TransferMode.MOVE);
+            }
+            event.consume();
+        });
+
+        mainDeckGrid.setOnDragDropped(event -> {
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+            if (db.hasString()) {
+                String cardId = db.getString();
+                Card card = CardDAO.getCardById(cardId);
+                if (card != null) {
+                    int count = mainDeckGrid.getChildren().size();
+                    int row = count / gridColums;
+                    int col = count % gridColums;
+
+                    createCardImage(card, col, row);
+                    success = true;
+                }
+            }
+            event.setDropCompleted(success);
+            event.consume();
+        });
     }
 
     public void loadDeck(Deck deck) {
+        this.currentDeck = deck;
         mainDeckGrid.getChildren().clear();
 
         List<String> cardIds = deck.getCardIDs();
@@ -78,22 +141,7 @@ public class DeckBuilderView implements Initializable {
 
             Card card = CardDAO.getCardById(cardIds.get(i));
             if (card != null) {
-                Image image = new Image(card.getImageUrl());
-                ImageView imageView = new ImageView(image);
-                imageView.setFitWidth(50);
-                imageView.setFitHeight(70);
-                imageView.setPreserveRatio(true);
-                imageView.setOnMouseEntered(_ -> {
-                    cardNameLabel.setText(card.getName());
-                    cardImageView.setImage(image);
-                    String cardDesc = "[" + card.getType() + "] " + card.getRace() + "/" + card.getAttribute() + "\n";
-                    if (card.getLevel() != 0) {
-                        cardDesc += "[" + card.getLevel() + "★] " + card.getAttack() + "/" + card.getDefense() + "\n";
-                    }
-                    cardDesc += card.getDesc();
-                    cardDescriptionArea.setText(cardDesc);
-                });
-                mainDeckGrid.add(imageView, col, row);
+                createCardImage(card, col, row);
             }
         }
     }
@@ -106,27 +154,40 @@ public class DeckBuilderView implements Initializable {
         searchResultList.getItems().clear();
 
         for (Card card : cards) {
-            HBox cardBox = createCardDisplay(card);
+            HBox cardBox = cardDisplayFactory.createCardBox(card);
+
+            ImageView imageView = (ImageView) cardBox.getChildren().getFirst();
+            Image image = new Image(card.getImageUrl());
+            showCardInfor(imageView, image, card);
+
             searchResultList.getItems().add(cardBox);
         }
+
     }
 
-    private HBox createCardDisplay(Card card) {
-        ImageView imageView = new ImageView(new Image(card.getImageUrl()));
-        imageView.setFitWidth(35);
-        imageView.setFitHeight(50);
+    private void showCardInfor(ImageView imageView, Image image, Card card) {
+        imageView.setOnMouseEntered(_ -> {
+            cardNameLabel.setText(card.getName());
+            cardImageView.setImage(image);
+            String cardDesc = "[" + card.getType() + "] " + card.getRace() + "/" + card.getAttribute() + "\n";
+            if (card.getAttribute() != null) {
+                cardDesc += "[" + card.getLevel() + "★] " + card.getAttack() + "/" + card.getDefense() + "\n";
+            }
+            cardDesc += card.getDesc();
+            cardDescriptionArea.setText(cardDesc);
+        });
+    }
+
+    private void createCardImage(Card card, int col, int row) {
+        Image image = new Image(card.getImageUrl());
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(70);
         imageView.setPreserveRatio(true);
+        showCardInfor(imageView, image, card);
 
-        Label nameLabel = new Label(card.getName());
-        Label detailsLabel = new Label(
-                card.getType() + "/" + card.getRace() + " ★" + card.getLevel() +
-                        "\n" + card.getAttack() + "/" + card.getDefense()
-        );
+        imageView.setUserData(String.valueOf(card.getId()));
 
-        VBox textContainer = new VBox(nameLabel, detailsLabel);
-        HBox cardContainer = new HBox(imageView, textContainer);
-        cardContainer.setSpacing(10);
-
-        return cardContainer;
+        mainDeckGrid.add(imageView, col, row);
     }
 }
