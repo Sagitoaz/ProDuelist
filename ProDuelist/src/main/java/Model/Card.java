@@ -28,6 +28,13 @@ public class Card {
         this.imageUrl = imageUrl;
     }
 
+    public boolean checkExtraMonster() {
+        if (this.frameType.equals("fusion") || this.frameType.equals("xyz") || this.frameType.equals("link") || this.frameType.equals("synchro")) {
+            return true;
+        }
+        return false;
+    }
+
     public int getId() { return id; }
     public String getName() { return name; }
     public String getType() { return type; }

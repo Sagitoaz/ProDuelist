@@ -17,18 +17,32 @@ public class DeckDataManager {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Array cardArray = rs.getArray("card_ids");
-                List<String> cardIds = new ArrayList<>();
-                if (cardArray != null) {
-                    String[] cardIdsArray = (String[]) cardArray.getArray();
-                    cardIds = Arrays.asList(cardIdsArray);
+                Array mainCardArray = rs.getArray("card_ids");
+                Array extraCardArray = rs.getArray("extra_deck");
+                Array sideCardArray = rs.getArray("side_deck");
+                List<String> mainCardIds = new ArrayList<>();
+                List<String> extraCardIds = new ArrayList<>();
+                List<String> sideCardIds = new ArrayList<>();
+                if (mainCardArray != null) {
+                    String[] cardIdsArray = (String[]) mainCardArray.getArray();
+                    mainCardIds = Arrays.asList(cardIdsArray);
+                }
+                if (extraCardArray != null) {
+                    String[] cardIdsArray = (String[]) extraCardArray.getArray();
+                    extraCardIds = Arrays.asList(cardIdsArray);
+                }
+                if (sideCardArray != null) {
+                    String[] cardIdsArray = (String[]) sideCardArray.getArray();
+                    sideCardIds = Arrays.asList(cardIdsArray);
                 }
                 Deck deck = new Deck(
                         rs.getString("id"),
                         rs.getString("user_id"),
                         rs.getString("name"),
                         rs.getString("visibility"),
-                        cardIds
+                        mainCardIds,
+                        extraCardIds,
+                        sideCardIds
                 );
                 decks.add(deck);
             }

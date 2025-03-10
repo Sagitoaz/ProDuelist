@@ -53,3 +53,37 @@
     -fx-border-radius: 10px;
     -fx-padding: 5px;
 }
+
+.createdeck-label {
+    -fx-background-color: rgba(10, 40, 80, 0.7);
+    -fx-border-color: #00ffff;
+    -fx-border-width: 2px;
+    -fx-text-fill: white;
+    -fx-font-size: 30px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
+.createdeck-text {
+    -fx-background-color: rgba(10, 40, 80, 0.7);
+    -fx-border-color: #00ffff;
+    -fx-border-width: 2px;
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
+.createdeck-button {
+    -fx-background-color: rgba(10, 40, 80, 0.7);
+    -fx-border-color: #00ffff;
+    -fx-border-width: 2px;
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+}
+
+.createdeck-pane {
+    -fx-border-color: #00ffff;
+    -fx-border-width: 2px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}

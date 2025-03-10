@@ -1,24 +1,19 @@
 package View;
 
-import Controller.CardDisplayFactory;
-import Controller.DeckDAO;
-import Controller.SceneManager;
+import Controller.*;
 import Model.Card;
 import Model.CardDAO;
+import Model.CardImageView;
 import Model.Deck;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
@@ -40,51 +35,50 @@ public class DeckBuilderView implements Initializable {
     @FXML private TextArea cardDescriptionArea;
     @FXML private ImageView cardImageView;
     @FXML private Label cardNameLabel;
-    @FXML private Button backButton;
-    @FXML private Button saveButton;
+    @FXML private Label editingDeckLabel;
+    @FXML private HBox extraDeckHbox;
+    @FXML private HBox sideDeckHbox;
 
     private Deck currentDeck;
     CardDisplayFactory cardDisplayFactory = new CardDisplayFactory();
     DeckDAO deckDAO = new DeckDAO();
     CardDAO cardDAO = new CardDAO();
-    private static final int gridColums = 15;
-    private static final int gridRows = 4;
+    private DeckSectionManager mainDeckManager;
+    private DeckSectionManager extraDeckManager;
+    private DeckSectionManager sideDeckManager;
 
-    private final List<Integer> monsterRows = List.of(2, 3, 4, 5, 6);
+    private static final int gridColums = 15;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setupComboBox(comboboxType, comboboxRace, comboboxMonsterType, comboboxAttribute, comboboxLevel, comboboxResult, comboboxSort);
         setupSearchTextField();
-        setupMainDeckGridDragDrop();
+        mainDeckManager = new MainDeckBuilderGridManager(mainDeckGrid, gridColums);
+        extraDeckManager = new ExtraDeckBuilderManager(extraDeckHbox);
+        sideDeckManager = new SideDeckBuilderManager(sideDeckHbox);
+        mainDeckManager.setCardInfoComponents(cardNameLabel, cardImageView, cardDescriptionArea);
+        extraDeckManager.setCardInfoComponents(cardNameLabel, cardImageView, cardDescriptionArea);
+        sideDeckManager.setCardInfoComponents(cardNameLabel, cardImageView, cardDescriptionArea);
     }
 
     @FXML
-    void onClickedBackButton(ActionEvent event) throws IOException {
+    void onClickedBackButton() throws IOException {
         SceneManager sceneManager = new SceneManager();
         Main.primaryStage.setScene(sceneManager.mainMenuScene());
     }
 
     @FXML
-    void onClickedSaveButton(ActionEvent event) {
-        List<String> newCardIds = new ArrayList<>();
-        mainDeckGrid.getChildren().forEach(node -> {
-            if (node instanceof ImageView) {
-                String cardId = (String) node.getUserData();
-                newCardIds.add(cardId);
-            }
-        });
-
+    void onClickedSaveButton() {
+        List<String> newMainCardIds = updateDeckIds(mainDeckGrid);
+        List<String> newExtraCardIds = updateDeckIds(extraDeckHbox);
+        List<String> newSideCardIds = updateDeckIds(sideDeckHbox);
         if (currentDeck != null) {
-            currentDeck.getCardIDs().clear();
-            currentDeck.getCardIDs().addAll(newCardIds);
-
-            deckDAO.updateDeck(currentDeck);
-
-            System.out.println("Deck đã được cập nhật card_ids thành công!");
+            currentDeck.setMainCardIDs(new ArrayList<>(newMainCardIds));
+            currentDeck.setExtraCardIDs(new ArrayList<>(newExtraCardIds));
+            currentDeck.setSideCardIDs(new ArrayList<>(newExtraCardIds));
         }
+        deckDAO.updateDeck(currentDeck);
     }
-
 
     private void setupComboBox(ComboBox<String> comboboxType, ComboBox<String> comboboxRace, ComboBox<String> comboboxMonsterType, ComboBox<String> comboboxAttribute, ComboBox<String> comboboxLevel, ComboBox<String> comboboxResult, ComboBox<String> comboboxSort) {
         comboboxType.setItems(FXCollections.observableArrayList("Monster", "Spell", "Trap"));
@@ -100,66 +94,25 @@ public class DeckBuilderView implements Initializable {
         searchTextField.setOnAction(_ -> searchCards());
     }
 
-    private void setupMainDeckGridDragDrop() {
-        mainDeckGrid.setOnDragOver(event -> {
-            if (event.getGestureSource() != mainDeckGrid && event.getDragboard().hasString()) {
-                event.acceptTransferModes(TransferMode.MOVE);
-            }
-            event.consume();
-        });
-
-        mainDeckGrid.setOnDragDropped(event -> {
-            Dragboard db = event.getDragboard();
-            boolean success = false;
-            if (db.hasString()) {
-                String cardId = db.getString();
-                Card card = CardDAO.getCardById(cardId);
-                if (card != null) {
-                    int count = mainDeckGrid.getChildren().size();
-                    int row = count / gridColums;
-                    int col = count % gridColums;
-
-                    createCardImage(card, col, row);
-                    success = true;
-                }
-            }
-            event.setDropCompleted(success);
-            event.consume();
-        });
-    }
-
     public void loadDeck(Deck deck) {
         this.currentDeck = deck;
-        mainDeckGrid.getChildren().clear();
+        editingDeckLabel.setText("Editing Deck: " + currentDeck.getDeckName());
 
-        List<String> cardIds = deck.getCardIDs();
-
-        for (int i = 0; i < cardIds.size(); i++) {
-            int row = i / gridColums;
-            int col = i % gridColums;
-            if (row >= gridRows) break;
-
-            Card card = CardDAO.getCardById(cardIds.get(i));
-            if (card != null) {
-                createCardImage(card, col, row);
-            }
-        }
+        mainDeckManager.loadDeckSection(deck.getMainCardIDs());
+        extraDeckManager.loadDeckSection(deck.getExtraCardIDs());
+        sideDeckManager.loadDeckSection(deck.getSideCardIDs());
     }
 
     private void searchCards() {
         String query = searchTextField.getText().trim();
         if (query.isEmpty()) return;
-
         List<Card> cards = cardDAO.searchCardsByName(query, 30);
         searchResultList.getItems().clear();
 
         for (Card card : cards) {
             HBox cardBox = cardDisplayFactory.createCardBox(card);
-
             ImageView imageView = (ImageView) cardBox.getChildren().getFirst();
-            Image image = new Image(card.getImageUrl());
-            showCardInfor(imageView, image, card);
-
+            showCardInfor(imageView, new Image(card.getImageUrl()), card);
             searchResultList.getItems().add(cardBox);
         }
 
@@ -178,16 +131,14 @@ public class DeckBuilderView implements Initializable {
         });
     }
 
-    private void createCardImage(Card card, int col, int row) {
-        Image image = new Image(card.getImageUrl());
-        ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(50);
-        imageView.setFitHeight(70);
-        imageView.setPreserveRatio(true);
-        showCardInfor(imageView, image, card);
-
-        imageView.setUserData(String.valueOf(card.getId()));
-
-        mainDeckGrid.add(imageView, col, row);
+    private List<String> updateDeckIds(Parent parent) {
+        List<String> newCardIds = new ArrayList<>();
+        parent.getChildrenUnmodifiable().forEach(node -> {
+            if (node instanceof ImageView) {
+                String cardId = (String) node.getUserData();
+                newCardIds.add(cardId);
+            }
+        });
+        return newCardIds;
     }
 }

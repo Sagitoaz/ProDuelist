@@ -8,18 +8,26 @@ public class Deck {
     private String userId;
     private String deckName;
     private String visibility;
-    private List<String> cardIDs;
+    private List<String> mainCardIDs;
+    private List<String> extraCardIDs;
+    private List<String> sideCardIDs;
 
-    public Deck(String deckId, String userId, String deckName, String visibility, List<String> cardIDs) {
+    public Deck(String deckId, String userId, String deckName, String visibility, List<String> mainCardIDs, List<String> extraCardIDs, List<String> sideCardIDs) {
         this.deckId = deckId;
         this.userId = userId;
         this.deckName = deckName;
         this.visibility = visibility;
-        this.cardIDs = (cardIDs == null) ? new ArrayList<>() : new ArrayList<>(cardIDs);
+        this.mainCardIDs = mainCardIDs;
+        this.extraCardIDs = extraCardIDs;
+        this.sideCardIDs = sideCardIDs;
     }
 
-    public List<String> getCardIDs() {
-        return cardIDs;
+    public List<String> getMainCardIDs() {
+        return mainCardIDs;
+    }
+
+    public void setMainCardIDs(List<String> mainCardIDs) {
+        this.mainCardIDs = mainCardIDs;
     }
 
     public String getDeckId() {
@@ -36,5 +44,21 @@ public class Deck {
 
     public String getVisibility() {
         return visibility;
+    }
+
+    public List<String> getExtraCardIDs() {
+        return extraCardIDs;
+    }
+
+    public void setExtraCardIDs(List<String> extraCardIDs) {
+        this.extraCardIDs = extraCardIDs;
+    }
+
+    public List<String> getSideCardIDs() {
+        return sideCardIDs;
+    }
+
+    public void setSideCardIDs(List<String> sideCardIDs) {
+        this.sideCardIDs = sideCardIDs;
     }
 }
