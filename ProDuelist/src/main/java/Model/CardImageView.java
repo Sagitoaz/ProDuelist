@@ -29,4 +29,8 @@ public class CardImageView extends ImageView {
             event.consume();
         });
     }
+
+    public Card getCard() {
+        return card;
+    }
 }

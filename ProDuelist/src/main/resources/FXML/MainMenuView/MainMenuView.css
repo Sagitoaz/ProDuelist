@@ -38,6 +38,10 @@
     -fx-font-size: 16px;
     -fx-padding: 15px 10px;
     -fx-min-height: 50px;
+    -fx-border-color: #00ffff;
+    -fx-border-width: 2px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
 }
 
 .list-cell:hover {
@@ -86,4 +90,23 @@
     -fx-border-width: 2px;
     -fx-background-radius: 5px;
     -fx-border-radius: 5px;
+}
+
+.list-view .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 15;
+}
+
+.list-view .scroll-bar:vertical .track {
+    -fx-background-color: #444444;
+    -fx-background-radius: 10;
+}
+
+.list-view .scroll-bar:vertical .thumb {
+    -fx-background-color: #6a0dad;
+    -fx-background-radius: 10;
+}
+
+.list-view .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #8b16d9;
 }

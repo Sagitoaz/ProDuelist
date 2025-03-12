@@ -22,17 +22,26 @@ public class MainDeckBuilderGridManager extends DeckSectionManager {
 
     @Override
     public void addCard(Node node) {
-        if (mainDeckGird.getChildren().size() < gridMaxSize) {
-            int mainDeckSize = mainDeckGird.getChildren().size();
-            int column = mainDeckSize % gridColumns;
-            int row = mainDeckSize / gridColumns;
-            mainDeckGird.add(node, column, row);
+        if (node instanceof CardImageView cardImageView) {
+            int cardId = cardImageView.getCard().getId();
+            if (mainDeckGird.getChildren().size() < gridMaxSize) {
+                int mainDeckSize = mainDeckGird.getChildren().size();
+                int column = mainDeckSize % gridColumns;
+                int row = mainDeckSize / gridColumns;
+                mainDeckGird.add(node, column, row);
+                DeckSectionManager.increaseCardCount(cardId);
+                System.out.println("Có " + getCardCount(cardImageView.getCard().getId()) + " lá bài tên " + cardImageView.getCard().getName());
+            }
         }
     }
 
     @Override
     public void removeCard(Node node) {
         mainDeckGird.getChildren().remove(node);
+        if (node instanceof CardImageView cardImageView) {
+            DeckSectionManager.decreaseCardCount(cardImageView.getCard().getId());
+            System.out.println("Có " + getCardCount(cardImageView.getCard().getId()) + " lá bài tên " + cardImageView.getCard().getName());
+        }
         rearrangDeck();
     }
 
@@ -43,6 +52,8 @@ public class MainDeckBuilderGridManager extends DeckSectionManager {
             Card card = CardDAO.getCardById(cardID);
             if (card != null) {
                 CardImageView cardImageView = new CardImageView(card);
+                setOnDragAndDrop(cardImageView);
+                attachDragDoneHandler(cardImageView);
                 addCard(cardImageView);
                 cardImageView.setOnMouseEntered(_ -> showCardInfo(card));
             }

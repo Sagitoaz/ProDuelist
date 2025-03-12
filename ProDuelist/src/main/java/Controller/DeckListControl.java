@@ -17,6 +17,7 @@ import java.io.IOException;
 public class DeckListControl {
     private ListView<Deck> deckListView;
     private final SceneManager sceneManager = new SceneManager();
+    private DeckDAO deckDAO = new DeckDAO();
 
     public DeckListControl(ListView<Deck> deckListView) {
         this.deckListView = deckListView;
@@ -81,6 +82,7 @@ public class DeckListControl {
         deckBuilderController.loadDeck(deck);
 
         Main.primaryStage.setScene(deckBuilderScene);
+        Main.primaryStage.centerOnScreen();
     }
 
     private void shareDeck(Deck deck) {
@@ -91,6 +93,6 @@ public class DeckListControl {
     private void deleteDeck(Deck deck) {
         System.out.println("Xóa deck: " + deck.getDeckName());
         deckListView.getItems().remove(deck);
-        // TODO: Xóa khỏi database nếu cần
+        deckDAO.deleteDeckFromSupabase(deck.getDeckId());
     }
 }

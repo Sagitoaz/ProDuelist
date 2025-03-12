@@ -30,6 +30,7 @@ public class DeckBuilderView implements Initializable {
     @FXML private ComboBox<String> comboboxLevel;
     @FXML private ComboBox<String> comboboxResult;
     @FXML private ComboBox<String> comboboxSort;
+    @FXML private ComboBox<String> banlistCombobox;
     @FXML private ListView<HBox> searchResultList;
     @FXML private TextField searchTextField;
     @FXML private TextArea cardDescriptionArea;
@@ -51,7 +52,7 @@ public class DeckBuilderView implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setupComboBox(comboboxType, comboboxRace, comboboxMonsterType, comboboxAttribute, comboboxLevel, comboboxResult, comboboxSort);
+        setupComboBox();
         setupSearchTextField();
         mainDeckManager = new MainDeckBuilderGridManager(mainDeckGrid, gridColums);
         extraDeckManager = new ExtraDeckBuilderManager(extraDeckHbox);
@@ -65,6 +66,7 @@ public class DeckBuilderView implements Initializable {
     void onClickedBackButton() throws IOException {
         SceneManager sceneManager = new SceneManager();
         Main.primaryStage.setScene(sceneManager.mainMenuScene());
+        Main.primaryStage.centerOnScreen();
     }
 
     @FXML
@@ -75,19 +77,23 @@ public class DeckBuilderView implements Initializable {
         if (currentDeck != null) {
             currentDeck.setMainCardIDs(new ArrayList<>(newMainCardIds));
             currentDeck.setExtraCardIDs(new ArrayList<>(newExtraCardIds));
-            currentDeck.setSideCardIDs(new ArrayList<>(newExtraCardIds));
+            currentDeck.setSideCardIDs(new ArrayList<>(newSideCardIds));
         }
         deckDAO.updateDeck(currentDeck);
     }
 
-    private void setupComboBox(ComboBox<String> comboboxType, ComboBox<String> comboboxRace, ComboBox<String> comboboxMonsterType, ComboBox<String> comboboxAttribute, ComboBox<String> comboboxLevel, ComboBox<String> comboboxResult, ComboBox<String> comboboxSort) {
+    private void setupComboBox() {
         comboboxType.setItems(FXCollections.observableArrayList("Monster", "Spell", "Trap"));
-        comboboxRace.setItems(FXCollections.observableArrayList("Dragon", "Warrior", "Spellcaster", "Fiend", "Fairy"));
+        comboboxRace.setItems(FXCollections.observableArrayList(
+                "Aqua", "Beast", "Beast-Warrior", "Creator God", "Cyberse", "Dinosaur", "Divine-Beast", "Dragon",
+                "Fairy", "Fiend", "Fish", "Insect", "Illusion", "Machine", "Plant", "Psychic", "Pyro", "Reptile",
+                "Rock", "Sea Serpent", "Spellcaster", "Thunder", "Warrior", "Winged Beast", "Wyrm", "Zombie"));
         comboboxMonsterType.setItems(FXCollections.observableArrayList("Normal", "Effect", "Fusion", "Synchro", "XYZ", "Link"));
         comboboxAttribute.setItems(FXCollections.observableArrayList("Light", "Dark", "Water", "Fire", "Earth", "Wind", "Divine"));
         comboboxLevel.setItems(FXCollections.observableArrayList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"));
         comboboxResult.setItems(FXCollections.observableArrayList("30", "60", "90", "120"));
         comboboxSort.setItems(FXCollections.observableArrayList(""));
+        banlistCombobox.setItems(FXCollections.observableArrayList("TCG Banlist", "OCG Banlist", "Master Duel", "World ChampionShip"));
     }
 
     private void setupSearchTextField() {
@@ -97,7 +103,7 @@ public class DeckBuilderView implements Initializable {
     public void loadDeck(Deck deck) {
         this.currentDeck = deck;
         editingDeckLabel.setText("Editing Deck: " + currentDeck.getDeckName());
-
+        DeckSectionManager.resetCardCountMap();
         mainDeckManager.loadDeckSection(deck.getMainCardIDs());
         extraDeckManager.loadDeckSection(deck.getExtraCardIDs());
         sideDeckManager.loadDeckSection(deck.getSideCardIDs());
@@ -122,12 +128,7 @@ public class DeckBuilderView implements Initializable {
         imageView.setOnMouseEntered(_ -> {
             cardNameLabel.setText(card.getName());
             cardImageView.setImage(image);
-            String cardDesc = "[" + card.getType() + "] " + card.getRace() + "/" + card.getAttribute() + "\n";
-            if (card.getAttribute() != null) {
-                cardDesc += "[" + card.getLevel() + "★] " + card.getAttack() + "/" + card.getDefense() + "\n";
-            }
-            cardDesc += card.getDesc();
-            cardDescriptionArea.setText(cardDesc);
+            DeckSectionManager.setCardDesc(card, cardDescriptionArea);
         });
     }
 

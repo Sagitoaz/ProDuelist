@@ -10,8 +10,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        stage.setResizable(false);
         primaryStage = stage;
         stage.setScene(sceneManager.loginScene());
+        stage.centerOnScreen();
         stage.show();
     }
 

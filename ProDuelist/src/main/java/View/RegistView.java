@@ -38,6 +38,7 @@ public class RegistView {
     @FXML
     private void onClickAlreadyHaveAccount() throws IOException {
         Main.primaryStage.setScene(sceneManager.loginScene());
+        Main.primaryStage.centerOnScreen();
     }
 
     @FXML

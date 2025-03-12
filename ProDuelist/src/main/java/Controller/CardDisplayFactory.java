@@ -20,10 +20,14 @@ public class CardDisplayFactory {
         imageView.setPreserveRatio(true);
 
         Label nameLabel = new Label(card.getName());
+        nameLabel.setWrapText(true);
+        nameLabel.setStyle("-fx-text-fill: white; -fx-font-size: 10; -fx-max-width: 170; -fx-pref-width: 170;");
         Label detailsLabel = new Label(
                 card.getType() + "/" + card.getRace() + " ★" + card.getLevel() +
                         "\n" + card.getAttack() + "/" + card.getDefense()
         );
+        detailsLabel.setWrapText(true);
+        detailsLabel.setStyle("-fx-text-fill: white; -fx-font-size: 10; -fx-max-width: 170; -fx-pref-width: 170;");
 
         VBox textContainer = new VBox(nameLabel, detailsLabel);
         HBox cardContainer = new HBox(imageView, textContainer);

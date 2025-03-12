@@ -19,23 +19,56 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" stylesheets="@DeckBuilderView.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.DeckBuilderView">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1300.0" stylesheets="@DeckBuilderView.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.DeckBuilderView">
    <children>
-      <ImageView fitHeight="700.0" fitWidth="1300.0" pickOnBounds="true">
+      <ImageView fitHeight="750.0" fitWidth="1300.0" pickOnBounds="true">
          <image>
             <Image url="@../../Images/ProDuelistBG.jpg" />
          </image>
       </ImageView>
-      <BorderPane prefHeight="700.0" prefWidth="1300.0">
+      <BorderPane prefHeight="750.0" prefWidth="1300.0">
          <center>
             <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="Main Deck">
+                  <AnchorPane prefHeight="50.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutY="9.0" text="Main Deck" />
+                        <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="340.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Images/CardType/effect.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="450.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Images/CardType/ritual.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="560.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Images/CardType/trap.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="670.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Images/CardType/spell.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="380.0" layoutY="19.0" text="[]" />
+                        <Label layoutX="490.0" layoutY="19.0" text="[]" />
+                        <Label layoutX="600.0" layoutY="19.0" text="[]" />
+                        <Label layoutX="710.0" layoutY="19.0" text="[]" />
+                        <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="230.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Images/CardType/normal.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="270.0" layoutY="19.0" text="[]" />
+                     </children>
                      <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                      </VBox.margin>
-                  </Label>
-                  <GridPane fx:id="mainDeckGrid" hgap="3.0" styleClass="grid-pane-border" vgap="3.0">
+                  </AnchorPane>
+                  <GridPane fx:id="mainDeckGrid" styleClass="grid-pane-border" vgap="5.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -66,22 +99,52 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
                   </GridPane>
-                  <Label text="Extra Deck">
+                  <AnchorPane prefHeight="50.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutY="9.0" text="Extra Deck" />
+                        <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="670.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Images/CardType/xyz.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="710.0" layoutY="9.0" text="[]" />
+                        <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="560.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Images/CardType/synchro.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="450.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Images/CardType/fusion.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="600.0" layoutY="9.0" text="[]" />
+                        <Label layoutX="490.0" layoutY="10.0" text="[]" />
+                        <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="340.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Images/CardType/link.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="380.0" layoutY="10.0" text="[]" />
+                     </children>
                      <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                      </VBox.margin>
-                  </Label>
-                  <HBox fx:id="extraDeckHbox" prefHeight="60.0" prefWidth="200.0" spacing="3.0" styleClass="hbox-border">
+                  </AnchorPane>
+                  <HBox fx:id="extraDeckHbox" prefHeight="60.0" prefWidth="200.0" styleClass="hbox-border">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
                   </HBox>
-                  <Label text="Side Deck">
+                  <AnchorPane prefHeight="50.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutY="9.0" text="Side Deck" />
+                     </children>
                      <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                      </VBox.margin>
-                  </Label>
-                  <HBox fx:id="sideDeckHbox" prefHeight="60.0" prefWidth="200.0" spacing="3.0" styleClass="hbox-border">
+                  </AnchorPane>
+                  <HBox fx:id="sideDeckHbox" prefHeight="60.0" prefWidth="200.0" styleClass="hbox-border">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
@@ -93,11 +156,11 @@
             </VBox>
          </center>
          <left>
-            <ScrollPane fitToHeight="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="250.0" BorderPane.alignment="CENTER">
+            <ScrollPane fitToHeight="true" hbarPolicy="NEVER" prefHeight="250.0" prefWidth="250.0" BorderPane.alignment="CENTER">
                <content>
-                  <VBox fillWidth="false" prefHeight="200.0" prefWidth="250.0">
+                  <VBox fillWidth="false" prefHeight="250.0" prefWidth="250.0">
                      <children>
-                        <Label fx:id="cardNameLabel" text="Label">
+                        <Label fx:id="cardNameLabel" text="Card Name">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
@@ -171,9 +234,9 @@
                               <Insets bottom="5.0" left="5.0" top="5.0" />
                            </VBox.margin>
                         </GridPane>
-                        <ListView fx:id="searchResultList" prefHeight="270.0" prefWidth="250.0">
+                        <ListView fx:id="searchResultList" prefHeight="320.0" prefWidth="250.0">
                            <VBox.margin>
-                              <Insets />
+                              <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                            </VBox.margin>
                            <padding>
                               <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
@@ -193,7 +256,7 @@
                   <Label fx:id="editingDeckLabel" prefHeight="32.0" prefWidth="378.0" text="Editing Deck" />
                   <Label prefHeight="45.0" prefWidth="231.0" text="Banlist">
                      <graphic>
-                        <ComboBox prefWidth="150.0" />
+                        <ComboBox fx:id="banlistCombobox" prefWidth="150.0" />
                      </graphic>
                   </Label>
                   <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onClickedSaveButton" styleClass="save-button" text="Save" />

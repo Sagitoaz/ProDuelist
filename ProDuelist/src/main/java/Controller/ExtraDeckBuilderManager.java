@@ -19,14 +19,23 @@ public class ExtraDeckBuilderManager extends DeckSectionManager{
 
     @Override
     public void addCard(Node node) {
-        if (extraDeckHbox.getChildren().size() < hboxMaxSize) {
-            extraDeckHbox.getChildren().add(node);
+        if (node instanceof CardImageView cardImageView) {
+            if (extraDeckHbox.getChildren().size() < hboxMaxSize) {
+                int cardId = cardImageView.getCard().getId();
+                extraDeckHbox.getChildren().add(node);
+                DeckSectionManager.increaseCardCount(cardId);
+                System.out.println("Có " + getCardCount(cardImageView.getCard().getId()) + " lá bài tên " + cardImageView.getCard().getName());
+            }
         }
     }
 
     @Override
     public void removeCard(Node node) {
         extraDeckHbox.getChildren().remove(node);
+        if (node instanceof CardImageView cardImageView) {
+            DeckSectionManager.decreaseCardCount(cardImageView.getCard().getId());
+            System.out.println("Có " + getCardCount(cardImageView.getCard().getId()) + " lá bài tên " + cardImageView.getCard().getName());
+        }
     }
 
     @Override
@@ -36,6 +45,8 @@ public class ExtraDeckBuilderManager extends DeckSectionManager{
             Card card = CardDAO.getCardById(cardID);
             if (card != null) {
                 CardImageView cardImageView = new CardImageView(card);
+                setOnDragAndDrop(cardImageView);
+                attachDragDoneHandler(cardImageView);
                 addCard(cardImageView);
                 cardImageView.setOnMouseEntered(_ -> showCardInfo(card));
             }

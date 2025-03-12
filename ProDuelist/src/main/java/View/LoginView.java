@@ -28,6 +28,7 @@ public class LoginView implements Initializable {
     @FXML
     private void onClickRegisterButton() throws IOException {
         Main.primaryStage.setScene(sceneManager.registScene());
+        Main.primaryStage.centerOnScreen();
     }
 
     @FXML
@@ -41,6 +42,7 @@ public class LoginView implements Initializable {
             String userID = userModel.getUserID(username, password);
             UserInformation.setUserID(userID);
             Main.primaryStage.setScene(sceneManager.mainMenuScene());
+            Main.primaryStage.centerOnScreen();
         }
     }
 
