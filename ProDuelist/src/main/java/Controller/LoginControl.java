@@ -8,7 +8,7 @@ public class LoginControl {
         if (!userModel.isUsernameExists(username)) {
             return "Username doesn't exist!";
         } else {
-            if (!userModel.checkPassword(username, password)) {
+            if (userModel.getUserID(username, password) == null) {
                 return "Incorrect password!";
             }
         }

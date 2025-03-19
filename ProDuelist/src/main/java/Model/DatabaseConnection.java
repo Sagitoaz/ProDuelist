@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DatabaseConnection {
     private static final String URL = "jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres";
     private static final String USER = "postgres.wlrspadzuwpuvdzfnqvp";
-    private static final String PASSWORD = "2401TrungLinh"; // Thay bằng mật khẩu thực tế
+    private static final String PASSWORD = "2401TrungLinh"; // database password
 
     public static Connection getConnection() {
         Connection connection = null;
@@ -24,9 +24,5 @@ public class DatabaseConnection {
             e.printStackTrace();
         }
         return connection;
-    }
-
-    public static void main(String[] args) {
-        getConnection();
     }
 }

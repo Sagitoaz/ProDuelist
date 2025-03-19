@@ -1,0 +1,69 @@
+.label-DECKS {
+    -fx-font-size: 50px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.list-cell {
+    -fx-background-color: rgba(50, 50, 50, 0.8);
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-padding: 15px 10px;
+    -fx-min-height: 50px;
+    -fx-border-color: #00ffff;
+    -fx-border-width: 2px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
+.list-cell:hover {
+    -fx-background-color: #8A2BE2;
+    -fx-text-fill: yellow;
+}
+
+.list-view {
+    -fx-background-color: rgba(0, 0, 0, 0.6);
+    -fx-border-color: #7D26CD;
+    -fx-border-width: 2px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-padding: 5px;
+}
+
+#enterDeckNameText {
+    -fx-background-color: #1a1a1a;
+    -fx-text-fill: white;
+    -fx-border-color: #333;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
+
+#searchButton {
+    -fx-background-color: #6a0dad;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-border-color: #333;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-background-insets: 0;
+    -fx-margin: 0 0 0 5px;
+}
+
+#searchButton:hover {
+    -fx-background-color: #8b16d9;
+}
+
+#backButton {
+    -fx-background-color: #d32f2f;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-border-color: #333;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-background-insets: 0;
+    -fx-margin: 0 0 0 5px;
+}
+
+#backButton:hover {
+    -fx-background-color: #ff5252;
+}

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.UUID;
 
 public class UserModel {
     private Connection getConnection() throws SQLException {
@@ -29,17 +30,19 @@ public class UserModel {
         return executeCountQuery("SELECT COUNT(*) FROM Users WHERE email = ?", email);
     }
 
-    public boolean checkPassword(String username, String password) {
+    public String getUserID(String username, String password) {
         String query = "SELECT * FROM Users WHERE username = ? AND password = ?";
         try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, username);
             pstmt.setString(2, password);
             ResultSet rs = pstmt.executeQuery();
-            return rs.next();
+            if (rs.next()) {
+                return rs.getString("id");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     public boolean registUser(String email, String username, String password) {
@@ -48,6 +51,35 @@ public class UserModel {
             pstmt.setString(1, email);
             pstmt.setString(2, username);
             pstmt.setString(3, password); // Chưa mã hóa password
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean checkPassword(String userId, String currentPassword) {
+        String query = "SELECT password FROM users WHERE id = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setObject(1, UUID.fromString(userId));
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("password").equals(currentPassword);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean updatePassword(String userId, String newPassword) {
+        String query = "UPDATE users SET password = ? WHERE id = ?::uuid";
+        try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, newPassword);
+            pstmt.setString(2, userId);
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();

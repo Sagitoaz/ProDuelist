@@ -25,12 +25,12 @@
       </ImageView>
       <ImageView fitHeight="269.0" fitWidth="400.0" layoutX="387.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../Images/LoginCharacter.png" />
+            <Image url="@../../Images/LoginView/LoginCharacter.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="252.0" fitWidth="300.0" layoutX="461.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../Images/LoginCharacter2.png" />
+            <Image url="@../../Images/LoginView/LoginCharacter2.png" />
          </image>
       </ImageView>
       <VBox prefHeight="600.0" prefWidth="300.0" AnchorPane.leftAnchor="10.0">
@@ -77,10 +77,33 @@
                <children>
                   <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#onClickRegisterButton" prefWidth="100.0" styleClass="button-register" text="REGISTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                   <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#onClickedLoginButton" prefWidth="100.0" styleClass="button-login" text="LOGIN" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                  <CheckBox mnemonicParsing="false" text="Stay logged in" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
-                  <Button mnemonicParsing="false" styleClass="button-forgotpass" text="Forgot password" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <CheckBox fx:id="stayLoginCheckbox" mnemonicParsing="false" text="Stay logged in" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
+                  <Button fx:id="forgotPassButton" mnemonicParsing="false" onAction="#onClickedForgotButton" styleClass="button-forgotpass" text="Forgot password" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                </children>
             </GridPane>
+            <AnchorPane prefHeight="79.0" prefWidth="300.0">
+               <children>
+                  <Label layoutY="31.0" styleClass="label-login" text="Follow us: " />
+                  <Button layoutX="106.0" layoutY="19.0" mnemonicParsing="false" onAction="#onClickedFacebookButton" prefHeight="50.0" prefWidth="59.0" styleClass="button-login">
+                     <graphic>
+                        <ImageView fitHeight="41.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Images/LoginView/Facebook.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button layoutX="186.0" layoutY="19.0" mnemonicParsing="false" onAction="#onClickedYoutubeButton" prefHeight="50.0" prefWidth="59.0" styleClass="button-login">
+                     <graphic>
+                        <ImageView fitHeight="34.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Images/LoginView/Youtube.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </AnchorPane>
             <Label fx:id="errorLabel" styleClass="label-error" text="Label" visible="false">
                <VBox.margin>
                   <Insets right="10.0" top="10.0" />

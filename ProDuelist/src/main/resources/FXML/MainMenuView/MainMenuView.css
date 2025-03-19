@@ -32,19 +32,16 @@
     -fx-margin: 0 0 0 5px;
 }
 
-.list-view {
-    -fx-background-color: rgba(0, 0, 0, 0.6);
-    -fx-border-color: #7D26CD;
-    -fx-border-width: 2px;
-    -fx-background-radius: 10px;
-    -fx-border-radius: 10px;
-}
-
 .list-cell {
     -fx-background-color: rgba(50, 50, 50, 0.8);
     -fx-text-fill: white;
-    -fx-font-size: 14px;
-    -fx-padding: 10px;
+    -fx-font-size: 16px;
+    -fx-padding: 15px 10px;
+    -fx-min-height: 50px;
+    -fx-border-color: #00ffff;
+    -fx-border-width: 2px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
 }
 
 .list-cell:hover {
@@ -52,8 +49,75 @@
     -fx-text-fill: yellow;
 }
 
-.list-cell:selected {
-    -fx-background-color: #FF4500;
+.list-view {
+    -fx-background-color: rgba(0, 0, 0, 0.6);
+    -fx-border-color: #7D26CD;
+    -fx-border-width: 2px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-padding: 5px;
+}
+
+.createdeck-label {
+    -fx-background-color: rgba(10, 40, 80, 0.7);
+    -fx-border-color: #00ffff;
+    -fx-border-width: 2px;
     -fx-text-fill: white;
+    -fx-font-size: 30px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
+.createdeck-text {
+    -fx-background-color: rgba(10, 40, 80, 0.7);
+    -fx-border-color: #00ffff;
+    -fx-border-width: 2px;
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
+.createdeck-button {
+    -fx-background-color: rgba(10, 40, 80, 0.7);
+    -fx-border-color: #00ffff;
+    -fx-border-width: 2px;
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+}
+
+.createdeck-pane {
+    -fx-border-color: #00ffff;
+    -fx-border-width: 2px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
+.list-view .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 15;
+}
+
+.list-view .scroll-bar:vertical .track {
+    -fx-background-color: #444444;
+    -fx-background-radius: 10;
+}
+
+.list-view .scroll-bar:vertical .thumb {
+    -fx-background-color: #6a0dad;
+    -fx-background-radius: 10;
+}
+
+.list-view .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #8b16d9;
+}
+
+.label-error {
+    -fx-font-size: 30px;
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+}
+.label-done {
+    -fx-font-size: 30px;
+    -fx-text-fill: yellow;
     -fx-font-weight: bold;
 }

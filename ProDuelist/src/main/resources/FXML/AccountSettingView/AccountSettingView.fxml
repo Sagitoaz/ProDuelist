@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="700.0" prefWidth="511.0" stylesheets="@AccountSettingView.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.AccountSettingView">
+   <children>
+      <ImageView fitHeight="700.0" fitWidth="511.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../Images/ProDuelistBG.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="179.0" fitWidth="173.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Images/Logo.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="logoutButton" layoutX="42.0" layoutY="635.0" mnemonicParsing="false" onAction="#onClickedLogoutButton" prefHeight="50.0" prefWidth="415.0" text="Log Out" />
+      <Button fx:id="backButton" layoutX="42.0" layoutY="569.0" mnemonicParsing="false" onAction="#onClickedBackButton" prefHeight="50.0" prefWidth="415.0" text="Back to Main Menu" />
+      <Label fx:id="helloLabel" layoutX="187.0" layoutY="23.0" text="Hello Sagito" wrapText="true">
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding></Label>
+      <Label fx:id="changePassLabel" layoutX="42.0" layoutY="187.0" text="Change Password" />
+      <TextField fx:id="currentPassText" layoutX="42.0" layoutY="225.0" prefHeight="38.0" prefWidth="415.0" promptText="Current Password" />
+      <TextField fx:id="newPassText" layoutX="42.0" layoutY="280.0" prefHeight="38.0" prefWidth="415.0" promptText="New Password" />
+      <TextField fx:id="confirmPassText" layoutX="42.0" layoutY="341.0" prefHeight="38.0" prefWidth="415.0" promptText="Confirm New Password" />
+      <Button fx:id="chooseMusicButton" layoutX="42.0" layoutY="461.0" mnemonicParsing="false" onAction="#onClickedChooseMusicButton" text="Choose Music" />
+      <Label fx:id="musicLabel" layoutX="163.0" layoutY="465.0" prefHeight="33.0" prefWidth="292.0" text="Label" />
+      <Slider fx:id="volumeSlider" layoutX="42.0" layoutY="524.0" prefHeight="16.0" prefWidth="415.0" />
+      <Button fx:id="changePassButton" layoutX="42.0" layoutY="392.0" mnemonicParsing="false" onAction="#onClickedChangePassButton" prefHeight="50.0" prefWidth="415.0" text="Change Password" />
+      <Label fx:id="errorLabel" layoutX="220.0" layoutY="191.0" text="Label Error" visible="false" />
+      <ImageView fitHeight="95.0" fitWidth="102.0" layoutX="250.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Images/SharingView/EyeImage.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

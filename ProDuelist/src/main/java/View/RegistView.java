@@ -12,25 +12,14 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 
 public class RegistView {
-    @FXML
-    private PasswordField confirmPasswordField;
+    @FXML private PasswordField confirmPasswordField;
+    @FXML private TextField emailField;
+    @FXML private PasswordField passwordField;
+    @FXML private TextField usernameField;
+    @FXML private Label errorLabel;
+    @FXML private Label registSuccessLabel;
 
-    @FXML
-    private TextField emailField;
-
-    @FXML
-    private PasswordField passwordField;
-
-    @FXML
-    private TextField usernameField;
-
-    @FXML
-    private Label errorLabel;
-
-    @FXML
-    private Label registSuccessLabel;
-
-    private final SceneManager sceneManager = new SceneManager();
+    private final SceneManager sceneManager = SceneManager.getInstance();
     private final UIHelper uiHelper = new UIHelper();
     private final RegistControl registControl = new RegistControl();
     private final UserModel userModel = new UserModel();
@@ -38,6 +27,7 @@ public class RegistView {
     @FXML
     private void onClickAlreadyHaveAccount() throws IOException {
         Main.primaryStage.setScene(sceneManager.loginScene());
+        Main.primaryStage.centerOnScreen();
     }
 
     @FXML

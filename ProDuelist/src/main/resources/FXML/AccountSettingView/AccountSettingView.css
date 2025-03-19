@@ -1,0 +1,97 @@
+#helloLabel {
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+    -fx-background-radius: 10px;
+    -fx-padding: 10px 20px;
+    -fx-alignment: center;
+}
+
+.button {
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(to bottom, #003366, #0055AA);
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 10px 20px;
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #004488, #0077CC);
+    -fx-cursor: hand;
+}
+
+.button:pressed {
+    -fx-background-color: #002244;
+}
+
+#changePassLabel {
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.text-field {
+    -fx-font-size: 14px;
+    -fx-padding: 8px;
+    -fx-border-color: white;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-background-color: rgba(255, 255, 255, 0.8);
+}
+
+.text-field:focused {
+    -fx-border-color: #00AAFF;
+    -fx-background-color: white;
+}
+
+#chooseMusicButton {
+    -fx-font-size: 14px;
+    -fx-padding: 8px;
+    -fx-background-color: #0055AA;
+    -fx-text-fill: white;
+    -fx-border-radius: 5px;
+}
+
+#volumeSlider {
+    -fx-pref-width: 415px;
+    -fx-background-color: transparent;
+}
+
+#volumeSlider .track {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-pref-height: 6px;
+}
+
+#volumeSlider .thumb {
+    -fx-background-color: #0077FF;
+    -fx-background-radius: 50%;
+    -fx-pref-width: 16px;
+    -fx-pref-height: 16px;
+}
+
+#musicLabel {
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+    -fx-padding: 5px;
+    -fx-border-color: white;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+
+#errorLabel {
+    -fx-font-size: 15px;
+    -fx-text-fill: red;
+}
