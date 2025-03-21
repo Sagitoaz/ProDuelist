@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>C:\Users\Sagito\OneDrive\Desktop\ProDuelist\out\artifacts\ProDuelist_jar\ProDuelist.jar</jar>
+  <outfile>C:\Users\Sagito\OneDrive\Desktop\ProDuelist\out\artifacts\ProDuelist_jar\ProDuelist.exe</outfile>
+  <errTitle></errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl></downloadUrl>
+  <supportUrl></supportUrl>
+  <stayAlive>false</stayAlive>
+  <restartOnCrash>false</restartOnCrash>
+  <manifest></manifest>
+  <icon>C:\Users\Sagito\Downloads\Logo.ico</icon>
+  <jre>
+    <path>%JAVA_HOME%;%PATH%</path>
+    <requiresJdk>false</requiresJdk>
+    <requires64Bit>false</requires64Bit>
+    <minVersion>17</minVersion>
+    <maxVersion></maxVersion>
+    <opt>--module-path</opt>
+    <opt>C:\Users\Sagito\javafx-lib</opt>
+    <opt>--add-modules</opt>
+    <opt>javafx.controls,javafx.fxml,javafx.media,javafx.graphics</opt>
+  </jre>
+</launch4jConfig>
