@@ -39,25 +39,45 @@
 ## Cấu trúc thư mục
 
 ProDuelist/
-│── Data/
+
+│── Data/  
+
 │   ├── music.json
+
 │   ├── user.jsonjson
+
 │── out/artifacts/ProDuelist_jar
+
 │       ├── ProDuelist.exe
+
 │       ├── ProDuelist.jar
+
 │       ├── ProDuelist.xml
+
 │── src/main
+
 │   ├── Controller/
+
 │   ├── Model/
+
 │   ├── Utils/
+
 │   ├── View/
+
 │   │   ├── Main.java
+
 │   ├── org/example/produelist
+
 │   │   ├── CreateSQLiteDatabase.java
+
 │   ├── resources
+
 │   │   ├── Database
+
 │   │   ├── FXML
+
 │   │   ├── Images
+
 UML/
 
 ## Hướng dẫn cài đặt
